@@ -7,6 +7,7 @@ function creaGrafico(date, datasets) {
       datasets: datasets
     },
     options: {
+      maintainAspectRatio: false,
       scales: {
         yAxes: [{
           display: true,
@@ -20,8 +21,8 @@ function creaGrafico(date, datasets) {
       },
       legend: {
         display: true,
-        position:"right",
-        align:"center"
+        // position:innerWidth>1000?"right":"bottom",
+        // align:"center"
       }
     }
   });
@@ -76,7 +77,7 @@ function prendiNomi(r) {
   //Prendo i nomi degli studenti
   let nomi = new Array();
   for (let i = 0; i < r.length; i++)
-    nomi.push(i+" => " + r[i][0]);
+    nomi.push(i+" " + r[i][0]);
   return nomi;
 }
 
@@ -92,6 +93,7 @@ function creaDatasets(nomi, voti, alunni) {
         label: nomi[i],
         backgroundColor: "rgb(" + rosso + "," + verde + "," + blu + ")",
         borderColor: "rgb(" + rosso + "," + verde + "," + blu + ")",
+        borderWidth:1,
         data: voti[i],
         fill: false
       });
