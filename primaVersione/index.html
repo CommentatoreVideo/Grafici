@@ -57,7 +57,8 @@
     $("#invia").click(() => {
       let s = $("#studenti").val().split(",");
       //Tolgo tutti i valori che potrebbero dare problemi
-      let filtrato = s.filter(value =>value.match(/\d/)); //Prendo solo cifre e virgole
+      let filtrato = s.filter(value =>value.match(/^\d+$/)); //Prendo solo cifre
+      filtrato=filtrato.filter(value=>value<risultati.length) //Tolgo i numeri non corrispondenti a nessun alunno
       filtrato = filtrato.filter(value => value.length != 0); //Tolgo gli elementi vuoti(nel caso non si inserisca il numero tra una virgola e un'altra)
       if (filtrato.length == 0)
         alert("Nessun valore inserito è valido");
