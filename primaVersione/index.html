@@ -58,9 +58,10 @@
       let s = $("#studenti").val().split(",");
       //Tolgo tutti i valori che potrebbero dare problemi
       let filtrato = s.filter(value =>
-        value.match(/,/ [0 - 9])
-      ); //Prendo solo cifre e virgole
-      filtrato = s.filter(value => value.length != 0); //Tolgo gli elementi vuoti(nel caso non si inserisca il numero tra una virgola e un'altra)
+        value.match(/\d/)
+      ); 
+      filtrato = filtrato.filter(value => value.length != 0); //Tolgo gli elementi vuoti(nel caso non si inserisca il numero tra una virgola e un'altra)
+      console.log(filtrato);//Prendo solo cifre e virgole
       if (filtrato.length == 0)
         alert("Nessun valore inserito è valido");
       else if (filtrato.length != s.length)
