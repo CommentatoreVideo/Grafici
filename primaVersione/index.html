@@ -63,6 +63,7 @@
         alert("Nessun valore inserito è valido");
       else if (filtrato.length != s.length)
         alert("I valori non validi sono stati scartati");
+      filtrato.sort((a, b)=> a-b); //Sorting in ordine crescente
       if (filtrato.length != 0)
         finito(filtrato)
       $("#studenti").val("");
