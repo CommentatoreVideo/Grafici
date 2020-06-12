@@ -76,7 +76,7 @@ function prendiNomi(r) {
   //Prendo i nomi degli studenti
   let nomi = new Array();
   for (let i = 0; i < r.length; i++)
-    nomi.push(r[i][0]);
+    nomi.push(i+" => " + r[i][0]);
   return nomi;
 }
 
