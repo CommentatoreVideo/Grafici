@@ -33,12 +33,12 @@
     let file;
     //Prendo il file con la memoria
     fetch("https://www.umanetexpo.net/expo2015Server/UECDL/grafici/as_1920/report&3Ct$6.asp")
-    .then(d => d.json())
-    .then(d => {
-      file = d;
-      finito()
-    })
-    .catch(e => console.error(e));
+      .then(d => d.json())
+      .then(d => {
+        file = d;
+        finito()
+      })
+      .catch(e => console.error(e));
 
     function finito(alunni = []) {
       risultati = file.risultati;
@@ -49,8 +49,8 @@
       let datasets = creaDatasets(nomi, voti, alunni);
       resetCanvas(); //Serve per evitare che i grafici si sovrappongano
       creaGrafico(date, datasets);
-      if(alunni.length!=0)
-      $("#tutti").show();
+      if (alunni.length != 0)
+        $("#tutti").show();
       else $("#tutti").hide();
     }
 
@@ -58,18 +58,17 @@
       let s = $("#studenti").val().split(",");
       //Tolgo tutti i valori che potrebbero dare problemi
       let filtrato = s.filter(value =>
-        !(isNaN(parseInt(value)) || value < 0 || value > risultati.length)
-      );
-      console.log(s, filtrato);
+        value.match(/,/ [0 - 9])
+      ); //Prendo solo cifre e virgole
+      filtrato = s.filter(value => value.length != 0); //Tolgo gli elementi vuoti(nel caso non si inserisca il numero tra una virgola e un'altra)
       if (filtrato.length == 0)
         alert("Nessun valore inserito è valido");
       else if (filtrato.length != s.length)
         alert("I valori non validi sono stati scartati");
-      if (filtrato.length != 0) {
+      if (filtrato.length != 0)
         finito(filtrato)
-      }
       $("#studenti").val("");
-    })
+    });
     $("#mostraTutti").click(() => {
       finito();
     })
