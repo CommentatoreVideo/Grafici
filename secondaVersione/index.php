@@ -43,13 +43,13 @@ function controllaData($s) {
 function dividiPeriodi($s) {
   $periodi=explode('&', $s);
   $n=array_filter($periodi,"controllaData");
-  return $n;
+  return array_values($n);
 }
 function trovaData($s,$p) {
-  for ($i=0; $i < count($p)-2; $i++)
-    if($s==$p[$i+2])
+  for ($i=0; $i < count($p); $i++)
+    if($s==$p[$i])
       return $i;
-  return 10;
+  return count($p);
 }
 ?>
 <!DOCTYPE html>
