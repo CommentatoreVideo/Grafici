@@ -73,7 +73,7 @@ function prendiPunti(r, pi, pf) {
     indice = 0;
     for (let j = 3; j < r.length; j++)
       if ((j - 3) % 3 == 0) {
-        if (indice >= pi && indice <= pf)
+        if (indice > pi && indice <= pf)
           s += Number(r[i][j]);
         indice++;
       }
