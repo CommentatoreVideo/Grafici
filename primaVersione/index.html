@@ -15,13 +15,13 @@
       position: relative;
       height: 100vh;
       width: 100%;
-      padding:0;
-      margin:0;
+      padding: 0;
+      margin: 0;
     }
-    
-    .container-fluid{
-      margin:0;
-      padding:0;
+
+    .container-fluid {
+      margin: 0;
+      padding: 0;
     }
   </style>
 </head>
@@ -59,10 +59,12 @@
       intestazione = file.intestazione;
       let date = prendiDate(intestazione);
       let voti = prendiVoti(risultati);
+      let massimo = calcolaMassimo(voti);
+      console.log(massimo);
       let nomi = prendiNomi(risultati);
       let datasets = creaDatasets(nomi, voti, alunni);
       resetCanvas(); //Serve per evitare che i grafici si sovrappongano
-      creaGrafico(date, datasets);
+      creaGrafico(date, datasets, massimo);
       if (alunni.length != 0)
         $("#tutti").show();
       else $("#tutti").hide();
