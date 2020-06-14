@@ -8,12 +8,17 @@ $periodoFine=-1;
 $periodi=dividiPeriodi($elenco["intestazione"]);
 $numeroPeriodi=count($periodi);
 
-if(isset($_GET["periodoInizio"])) {
-  $periodoInizioM=$_GET["periodoInizio"];
-  if(controllaData($periodoInizioM))
-    $periodoInizio=trovaData($periodoInizioM,$periodi);
-  else $periodoInizio=0;
-}else $periodoInizio=0;
+if(isset($_GET["periodoInizio"]))
+  if($_GET["periodoInizio"]=="12_09_2013")
+    $periodoInizio=0;
+  else {
+    $periodoInizioM=$_GET["periodoInizio"];
+    if(controllaData($periodoInizioM))
+      $periodoInizio=trovaData($periodoInizioM,$periodi);
+    else
+      $periodoInizio=0;
+  }
+else $periodoInizio=0;
 
 if(isset($_GET["periodoFine"])) {
   $periodoFineM=$_GET["periodoFine"];
