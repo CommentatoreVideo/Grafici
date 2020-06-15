@@ -116,6 +116,8 @@
     }
 
     function inserisciDate(d, i, f) {
+      $("#periodoInizio").empty();
+      $("#periodoFine").empty();
       for (let i = 0; i < d.length; i++) {
         let option = document.createElement("option");
         option.value = d[i];
