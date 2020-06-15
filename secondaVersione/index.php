@@ -2,7 +2,7 @@
 $file=file_get_contents("https://www.umanetexpo.net/expo2015Server/UECDL/grafici/as_1920/report&3Ct$6.asp");
 $elenco=json_decode($file,true);
 $periodoInizioM;
-$periodoFineM;
+$periodoFineM=0;
 $periodoInizio=-1;
 $periodoFine=-1;
 $periodi=dividiPeriodi($elenco["intestazione"]);
