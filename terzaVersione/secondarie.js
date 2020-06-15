@@ -55,16 +55,16 @@ function combacia(s) {
 
 }
 
-function prendiDate(s) {
+
+function prendiDate(s,n) {
   //Divido la stringa ad ogni & e prendo solo le parti che combaciano con le date
   let divisione = s.split("&");
   let date = new Array();
-  for (let i = 0; i < divisione.length; i++)
+  for (let i = 0; i < divisione.length&&date.length<n; i++)
     if (combacia(divisione[i]))
       date.push(divisione[i]);
   return date;
 }
-
 function prendiVoti(r) {
   //Creo la matrice dei voti
   let voti = new Array();
@@ -76,14 +76,6 @@ function prendiVoti(r) {
       if ((j - 2) % 3 == 0)
         voti[i].push(r[i][j]);
   return voti;
-}
-
-function prendiNomi(r) {
-  //Prendo i nomi degli studenti
-  let nomi = new Array();
-  for (let i = 0; i < r.length; i++)
-    nomi.push(r[i][0]);
-  return nomi;
 }
 
 function resetCanvas() {
