@@ -136,7 +136,7 @@ function trovaData($s,$p) {
       risultati = file.risultati;
       intestazione = file.intestazione;
       let nPeriodi=<?php echo $nPeriodiValidi?>;
-      let date = prendiDate(intestazione,nPeriodi);
+      let date = prendiDate(intestazione,<?php echo $periodoInizio.",".$periodoFine?>);
       let voti = [<?php elencaVoti($voti) ?>];
       let nome = "<?php echo $nome ?>";
       resetCanvas(); //Serve per evitare che i grafici si sovrappongano

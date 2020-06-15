@@ -56,15 +56,21 @@ function combacia(s) {
 }
 
 
-function prendiDate(s,n) {
+function prendiDate(s, inizio, fine) {
   //Divido la stringa ad ogni & e prendo solo le parti che combaciano con le date
   let divisione = s.split("&");
   let date = new Array();
-  for (let i = 0; i < divisione.length&&date.length<n; i++)
-    if (combacia(divisione[i]))
-      date.push(divisione[i]);
+  let indice = 0;
+  for (let i = 0; i < divisione.length; i++) {
+    if (combacia(divisione[i])) {
+      if (indice >= inizio && indice <= fine)
+        date.push(divisione[i]);
+      indice++;
+    }
+  }
   return date;
 }
+
 function prendiVoti(r) {
   //Creo la matrice dei voti
   let voti = new Array();

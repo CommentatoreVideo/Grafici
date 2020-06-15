@@ -60,18 +60,43 @@ function prendiDate(s) {
   return date;
 }
 
-function prendiVoti(r) {
+function prendiDateN(s, inizio, f) {
+  //Divido la stringa ad ogni & e prendo solo le parti che combaciano con le date
+  let divisione = s.split("&");
+  let date = new Array();
+  let indice = 0;
+  for (let i = 0; i < divisione.length && date.length < f - inizio + 1; i++)
+    if (combacia(divisione[i])) {
+      if (indice >= inizio && indice <= f)
+        date.push(divisione[i]);
+      indice++;
+    }
+  return date;
+}
+
+function prendiVoti(r, inizio, f) {
   //Creo la matrice dei voti
   let voti = new Array();
   for (let i = 0; i < r.length; i++)
     voti.push(new Array());
+  let indice;
+  let s;
   //Aggiungo solo i voti
-  for (let i = 0; i < r.length; i++)
-    for (let j = 2; j < r.length; j++)
-      if ((j - 2) % 3 == 0)
-        voti[i].push(r[i][j]);
+  for (let i = 0; i < r.length; i++) {
+    indice = 0;
+    s = 0;
+    for (let j = 2; j < r.length; j++) {
+      if ((j - 2) % 3 == 0) {
+        if (indice >= inizio && indice <= f)
+        voti[i].push( Number(r[i][j]));
+        indice++;
+      }
+    }
+    
+  }
   return voti;
 }
+
 
 function prendiNomi(r) {
   //Prendo i nomi degli studenti

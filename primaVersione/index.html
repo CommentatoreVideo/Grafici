@@ -39,6 +39,15 @@
         <button id="mostraTutti">Mostra tutti gli studenti</button>
       </div>
     </div>
+    <div id="periodi">
+      <form action="" method="get">
+        <select name="periodoInizio" id="periodoInizio">
+        </select>
+        <select name="periodoFine" id="periodoFine">
+        </select>
+        <input type="submit" value="Invia">
+      </form>
+    </div>
   </div>
   <script src="secondarie.js"></script>
   <script>
@@ -57,8 +66,14 @@
     function finito(alunni = []) {
       risultati = file.risultati;
       intestazione = file.intestazione;
+      let periodoInizio = prendiParametro("periodoInizio");
+      let periodoFine = prendiParametro("periodoFine");
       let date = prendiDate(intestazione);
-      let voti = prendiVoti(risultati);
+      let inizio = trova(periodoInizio, date);
+      let fine = trova(periodoFine, date);
+      inserisciDate(date, inizio, fine);
+      date = prendiDateN(intestazione, inizio,fine);
+      let voti = prendiVoti(risultati,inizio,fine);
       let massimo = calcolaMassimo(voti);
       let nomi = prendiNomi(risultati);
       let datasets = creaDatasets(nomi, voti, alunni);
@@ -87,6 +102,41 @@
     $("#mostraTutti").click(() => {
       finito();
     })
+
+    function prendiParametro(nomeParametro) {
+      let risultato = null,
+        momentaneo = [];
+      let parametri = location.search.substr(1).split("&");
+      for (let i = 0; i < parametri.length; i++) {
+        momentaneo = parametri[i].split("=");
+        if (momentaneo[0] === nomeParametro)
+          risultato = decodeURIComponent(momentaneo[1]);
+      }
+      return risultato;
+    }
+
+    function inserisciDate(d, i, f) {
+      for (let i = 0; i < d.length; i++) {
+        let option = document.createElement("option");
+        option.value = d[i];
+        option.innerText = d[i];
+        $("#periodoInizio").append(option);
+        option = document.createElement("option");
+        option.value = d[i];
+        option.innerText = d[i];
+        $("#periodoFine").append(option);
+      }
+
+      $("#periodoInizio").children().eq(i).attr("selected", "selected");
+      $("#periodoFine").children().eq(f).attr("selected", "selected");
+    }
+
+    function trova(e, v) {
+      for (let i = 0; i < v.length; i++)
+        if (v[i] == e)
+          return i;
+      return -1;
+    }
   </script>
 </body>
 
