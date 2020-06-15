@@ -22,11 +22,15 @@ else $periodoInizio=0;
 
 if(isset($_GET["periodoFine"])) {
   $periodoFineM=$_GET["periodoFine"];
+  if($periodoFineM=="oggi")
+  $periodoFine=$numeroPeriodi-1; 
+  else {
   if(controllaData($periodoFineM))
     $periodoFineM=trovaData($periodoFineM,$periodi);
   if($periodoFineM<$periodoInizio) {
     $periodoFine=$periodoInizio-1;
   }else $periodoFine=$periodoFineM;
+}
 }else $periodoFine=$numeroPeriodi;
 
 function controllaData($s) {
@@ -75,6 +79,24 @@ function trovaData($s,$p) {
   <div class="container-fluid" id="contenitore">
     <canvas id="grafico"></canvas>
   </div>
+  <div id="periodi">
+    <form action="" method="get">
+    <select name="periodoInizio" id="periodoInizio">
+      <?php
+      foreach($periodi as $p)
+        echo "<option value=".$p.">".$p."</option>\n";
+      ?>
+    </select>
+    <select name="periodoFine" id="periodoFine">
+    <?php
+      foreach($periodi as $p)
+        echo "<option value=".$p.">".$p."</option>\n";
+    ?>
+    <option value="oggi">Oggi</option>
+    </select>
+    <input type="submit" value="Invia">
+    </form>
+  </div>
   <script src="secondarie.js"></script>
   <script>
     let risultati, intestazione;
@@ -99,6 +121,34 @@ function trovaData($s,$p) {
       bubbleSort(punti,nomi); //Ordino i nomi e i punti
       creaGrafico(nomi,punti); //Creo il grafico
     }
+    //Seleziono le date correnti
+    <?php
+    echo "$(\"#periodoInizio\").children().eq(".$periodoInizio.").attr(\"selected\",\"selected\");\n";
+    if($periodoFineM=="oggi")
+    echo "$(\"#periodoFine\").children().eq($(\"#periodoFine\").children().length-1).attr(\"selected\",\"selected\");\n";
+    else echo "$(\"#periodoFine\").children().eq(".$periodoFine.").attr(\"selected\",\"selected\");\n";
+    ?>
+    $("#periodoInizio").change(()=>{
+      //Prendo i due select
+      let periodoInizio=document.getElementById("periodoInizio");
+      let periodoFine=document.getElementById("periodoFine");
+      $("#periodoFine").empty(); //Svuoto il select finale
+      let indice=periodoInizio.options.selectedIndex; //Prendo l'indice selezionato
+      //Riempio il select finale solo con i voti validi
+      for(let i=0; i<periodoInizio.options.length; i++)
+      if(i>=indice) {
+        let option=document.createElement("option");
+        option.value=periodoInizio.options[i].value;
+        option.innerText=periodoInizio.options[i].value;
+        $("#periodoFine").append(option);
+      }
+      //Aggiungo la voce ultimo
+      let option=document.createElement("option");
+        option.value="oggi";
+        option.innerText="Oggi";
+        $("#periodoFine").append(option);
+    })
+    
   </script>
 </body>
 

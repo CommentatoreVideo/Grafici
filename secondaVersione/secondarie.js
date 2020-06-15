@@ -6,7 +6,7 @@ function creaGrafico(labels, dati) {
     data: {
       labels: labels,
       datasets: [{
-        label:"Punteggi",
+        label: "Punteggi",
         data: dati,
         backgroundColor: c,
         borderColor: c,
@@ -75,6 +75,8 @@ function prendiPunti(r, pi, pf) {
       if ((j - 3) % 3 == 0) {
         if (indice > pi && indice <= pf)
           s += Number(r[i][j]);
+        else if (pi == pf && indice == pi)
+          s += 1;
         indice++;
       }
     punti.push(s);
@@ -93,7 +95,7 @@ function prendiNomi(r) {
 function bubbleSort(punti, nomi) {
   let indice = punti.length - 1;
   let fine = false;
-  while (!fine&&indice>=0) {
+  while (!fine && indice >= 0) {
     fine = true;
     for (let i = 0; i < indice; i++)
       if (punti[i] < punti[i + 1]) {
@@ -111,7 +113,7 @@ function scambia(vettore, i) {
   vettore[i + 1] = m;
 }
 
-function resetCanvas(){
-  $('#grafico').remove(); 
+function resetCanvas() {
+  $('#grafico').remove();
   $('#contenitore').append('<canvas id="grafico"><canvas>');
 };
